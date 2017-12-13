@@ -1,5 +1,6 @@
 package com.will.ceil.serviceImpl;
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,9 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.will.ceil.service.Ceil;
 import com.will.ceil.service.CeilDaoService;
+import com.will.ceil.service.Core;
 
 @Service("ceilDaoService")
 public class CeilDaoServiceImpl implements CeilDaoService {
@@ -78,14 +81,20 @@ public class CeilDaoServiceImpl implements CeilDaoService {
 			Ceil ceil = new Ceil();
 			if(ceilE != null){
 				BeanUtils.copyProperties(ceilE, ceil);
+				if(!CollectionUtils.isEmpty(ceilE.getCores())){
+					HashSet<Core> coreSet = new HashSet<Core>();
+					for (CoreE source : ceilE.getCores()) {
+						Core target = new Core();
+						BeanUtils.copyProperties(source, target);
+						coreSet.add(target);
+					}
+					ceil.setCores(coreSet);
+				}
 			} else {
 				ceil = null;
 			}
 			return ceil;
 		}
 		
-	}
-	public static void main(String a[]){
-		System.out.println((-3)/2);
 	}
 }

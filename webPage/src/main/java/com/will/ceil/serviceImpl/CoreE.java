@@ -1,12 +1,11 @@
 package com.will.ceil.serviceImpl;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
@@ -14,18 +13,19 @@ import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
-@Table(name = "ceil")
-public class CeilE {
+@Table(name = "core")
+public class CoreE {
 	
 	@Id
-	@GeneratedValue(generator="ceilUUID")
-	@GenericGenerator(name="ceilUUID",strategy="uuid")
+	@GeneratedValue(generator="coreUUID")
+	@GenericGenerator(name="coreUUID",strategy="uuid")
 	String Id;
 
 	String name;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	Set <CoreE> cores;
+ 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER, optional = false)
+ 	@JoinColumn(name="ceil_id",insertable=false,updatable=false)
+	CeilE ceil;
 	
 	public String getId() {
 		return Id;
@@ -39,11 +39,11 @@ public class CeilE {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<CoreE> getCores() {
-		return cores;
+	public CeilE getCeil() {
+		return ceil;
 	}
-	public void setCores(Set<CoreE> cores) {
-		this.cores = cores;
+	public void setCeil(CeilE ceilId) {
+		this.ceil = ceilId;
 	}
 	
 }

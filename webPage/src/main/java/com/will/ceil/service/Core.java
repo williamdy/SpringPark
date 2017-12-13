@@ -1,15 +1,19 @@
 package com.will.ceil.service;
 
-import java.util.Set;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-import com.will.ceil.serviceImpl.CoreE;
+import org.hibernate.annotations.GenericGenerator;
 
 
-public class Ceil {
-
+public class Core {
+	
 	String Id;
+
 	String name;
-	Set <Core> cores;
+	
+	Ceil ceil;
+	
 	public String getId() {
 		return Id;
 	}
@@ -22,11 +26,11 @@ public class Ceil {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<Core> getCores() {
-		return cores;
+	public Ceil getCeil() {
+		return ceil;
 	}
-	public void setCores(Set<Core> cores) {
-		this.cores = cores;
+	public void setCeil(Ceil ceil) {
+		this.ceil = ceil;
 	}
 	
 }
